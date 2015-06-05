@@ -6,14 +6,20 @@ let options = [
     { value: 'two', label: 'Two' }
 ];
 
-let _handleChange = function(evt) {
+let _handleDropdownChange = function(evt) {
   console.log(evt.target.value);
 };
 
 export default class App extends Component {
   render() {
     return (
-      <Dropdown options={options} onChange={_handleChange}/>
+      <div>
+        <Dropdown options={options} onChange={_handleDropdownChange}/>
+        <Dropdown options={options} onChange={_handleDropdownChange}/>
+        <Dropdown options={options} onChange={_handleDropdownChange}/>
+        <Dropdown options={options} onChange={_handleDropdownChange}/>
+        <Dropdown options={options} onChange={_handleDropdownChange}/>
+      </div>
     );
   }
 }
