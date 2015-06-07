@@ -1,24 +1,61 @@
 import React, { Component } from 'react';
 import Dropdown from './Components/Dropdown';
 
-let options = [
-    { value: 'one', label: 'One' },
-    { value: 'two', label: 'Two' }
+let buttonOpts = [
+    { value: 'single_breasted_1', label: 'S1' },
+    { value: 'single_breasted_2', label: 'S2' },
+    { value: 'single_breasted_3', label: 'S3' },
+    { value: 'double_breasted_2', label: 'D2' },
+    { value: 'double_breasted_4', label: 'D4' },
+    { value: 'double_breasted_6', label: 'D6' }
 ];
 
-let _handleDropdownChange = function(evt) {
-  console.log(evt.target.value);
-};
+let collarOpts = [
+    { value: 'peaked_lapel', label: 'Peaked' },
+    { value: 'notch_lapen', label: 'Notch' }
+];
+
+let tailOpts = [
+    { value: 'side', label: 'Side' },
+    { value: 'none', label: 'None' },
+    { value: 'back', label: 'Back' }
+];
+
+let pocketOpts = [
+    { value: 'lean', label: 'Lean' },
+    { value: 'regular', label: 'Regular' },
+    { value: 'two_horn', label: 'TwoHorn' }
+];
+
+let fabricOpts = [
+    { value: 'black', label: 'Black' },
+    { value: 'blue', label: 'Blue' }
+];
 
 export default class App extends Component {
+  getInitialState() {
+    return { 
+      fabric: 'black',
+      button: 'single_breasted_1',
+      tail: 'side',
+      pocket: 'lean',
+      collar: 'peaked_lapel' 
+    };
+  }
+
+  _handleDropdownChange(evt) {
+    // this.setState();
+    console.log(evt);
+  }
+
   render() {
     return (
       <div>
-        <Dropdown options={options} onChange={_handleDropdownChange}/>
-        <Dropdown options={options} onChange={_handleDropdownChange}/>
-        <Dropdown options={options} onChange={_handleDropdownChange}/>
-        <Dropdown options={options} onChange={_handleDropdownChange}/>
-        <Dropdown options={options} onChange={_handleDropdownChange}/>
+        <Dropdown options={fabricOpts} onChange={this._handleDropdownChange}/>
+        <Dropdown options={buttonOpts} onChange={this._handleDropdownChange}/>
+        <Dropdown options={tailOpts} onChange={this._handleDropdownChange}/>
+        <Dropdown options={pocketOpts} onChange={this._handleDropdownChange}/>
+        <Dropdown options={collarOpts} onChange={this._handleDropdownChange}/>
       </div>
     );
   }
