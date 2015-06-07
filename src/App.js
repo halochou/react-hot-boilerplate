@@ -33,8 +33,9 @@ let fabricOpts = [
 ];
 
 export default class App extends Component {
-  getInitialState() {
-    return { 
+  constructor(props) {
+    super(props);
+    this.state = { 
       fabric: 'black',
       button: 'single_breasted_1',
       tail: 'side',
@@ -43,15 +44,16 @@ export default class App extends Component {
     };
   }
 
-  _handleDropdownChange(evt) {
-    // this.setState();
-    console.log(evt);
+  _handleDropdownChange(name, value) {
+    this.setState({[name]: value});
+    // console.log(name, value);
   }
 
   render() {
+
     return (
       <div>
-        <Dropdown options={fabricOpts} onChange={this._handleDropdownChange}/>
+        <Dropdown options={fabricOpts} onChange={this._handleDropdownChange.bind(this)} name="fabric" />
         <Dropdown options={buttonOpts} onChange={this._handleDropdownChange}/>
         <Dropdown options={tailOpts} onChange={this._handleDropdownChange}/>
         <Dropdown options={pocketOpts} onChange={this._handleDropdownChange}/>
