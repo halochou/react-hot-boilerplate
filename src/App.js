@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Dropdown from './Components/Dropdown';
+import ThreeBox from './Components/ThreeBox';
 
 let buttonOpts = [
     { value: 'single_breasted_1', label: 'S1' },
@@ -46,18 +47,23 @@ export default class App extends Component {
 
   _handleDropdownChange(name, value) {
     this.setState({[name]: value});
-    // console.log(name, value);
+    console.log(name, value);
   }
 
   render() {
-
+    // let optionList = ['fabric', 'button', 'tail', 'pocket', 'collar'];
     return (
       <div>
-        <Dropdown options={fabricOpts} onChange={this._handleDropdownChange.bind(this)} name="fabric" />
-        <Dropdown options={buttonOpts} onChange={this._handleDropdownChange}/>
-        <Dropdown options={tailOpts} onChange={this._handleDropdownChange}/>
-        <Dropdown options={pocketOpts} onChange={this._handleDropdownChange}/>
-        <Dropdown options={collarOpts} onChange={this._handleDropdownChange}/>
+        <div>
+          <Dropdown options={fabricOpts} onChange={this._handleDropdownChange.bind(this)} name="fabric" value={this.state.fabric} />
+          <Dropdown options={buttonOpts} onChange={this._handleDropdownChange.bind(this)} name="button" value={this.state.button} />
+          <Dropdown options={tailOpts} onChange={this._handleDropdownChange.bind(this)} name="tail" value={this.state.tail} />
+          <Dropdown options={pocketOpts} onChange={this._handleDropdownChange.bind(this)} name="pocket" value={this.state.pocket} />
+          <Dropdown options={collarOpts} onChange={this._handleDropdownChange.bind(this)} name="collar" value={this.state.collar} />
+        </div>
+        <div>
+          <ThreeBox modelState={this.state} />
+        </div>
       </div>
     );
   }

@@ -12,7 +12,7 @@ export default class Dropdown extends Component {
 
     return (
       <div>
-        <select onChange={this.handleChange.bind(this)}>
+        <select value={this.props.value} onChange={this.handleChange.bind(this)}>
           {options}
         </select>
       </div>

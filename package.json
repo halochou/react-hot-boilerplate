@@ -37,6 +37,8 @@
     "webpack-dev-server": "^1.8.2"
   },
   "dependencies": {
-    "react": "^0.13.0"
+    "react": "^0.13.0",
+    "three": "^0.71.0",
+    "three-orbit-controls": "^69.0.4"
   }
 }
