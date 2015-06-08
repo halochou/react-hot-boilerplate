@@ -79,10 +79,10 @@ export default class App extends Component {
     let dropdowns = optionList.map(opt => <Dropdown options={fullOptions[opt].filter(filters[opt].bind(this))} onChange={this._handleDropdownChange.bind(this)} name={opt} />)
     return (
       <div>
-        <div>
+        <div className="row">
           {dropdowns}
         </div>
-        <div>
+        <div className="row">
           <ThreeBox modelState={this.state} />
         </div>
       </div>

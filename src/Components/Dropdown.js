@@ -27,7 +27,8 @@ export default class Dropdown extends Component {
         );
 
     return (
-      <div>
+      <div className="col-md-2">
+        {this.props.name}: 
         <select value={this.state.value} onChange={this.handleChange.bind(this)}>
           {options}
         </select>
