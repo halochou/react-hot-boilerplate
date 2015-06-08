@@ -63,7 +63,7 @@ var init = function (params) {
   controls.noPan = true;
   controls.minPolarAngle = Math.PI/13*6; // radians
   controls.maxPolarAngle = Math.PI/13*7; // radians
-  controls.autoRotate = true;//false;
+  controls.autoRotate = false;
   controls.autoRotateSpeed = 2.0;
   controls.damping = 0.2;
   controls.addEventListener( 'change', render );
@@ -129,7 +129,6 @@ var updateAll = function(newState) {
 
   var collarOBJPath = 'http://localhost:9999/assets/models/suit_collar/' + newState.button + '_' + newState.collar + '/' + newState.button + '_' + newState.collar + '.obj';
   var collarMTLPath = 'http://localhost:9999/assets/models/suit_collar/' + newState.button + '_' + newState.collar + '/' + newState.button + '_' + newState.collar + '_fabric_' + newState.fabric + '.mtl';
-  console.log(collarOBJPath);
   _updateModelFromLoader('suit_collar', collarOBJPath, collarMTLPath);
 
   var pocketOBJPath = 'http://localhost:9999/assets/models/suit_pocket/' + newState.pocket + '/' + newState.pocket + '.obj';

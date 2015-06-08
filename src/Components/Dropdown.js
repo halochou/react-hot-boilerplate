@@ -1,25 +1,34 @@
 import React, { Component } from 'react';
 
 export default class Dropdown extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { 
+      value: this.props.options[0].value
+    };
+  }
+
   handleChange(e) {
+    this.setState({value: e.target.value});
     this.props.onChange(this.props.name , e.target.value);
   }
 
-  render() {
-    let options = [];
-    if(this.props.filter){
-      options = this.props.options.filter(this.props.filter).map(
-        option => <option value={option.value}>{option.label}</option>
-        );
-    } else {
-      options = this.props.options.map(
-        option => <option value={option.value}>{option.label}</option>
-        );
+  componentWillReceiveProps(nextProps){
+    if(!nextProps.options.some(opt => opt.value == this.state.value)){
+      this.setState({value: nextProps.options[0].value});
+      nextProps.onChange(nextProps.name , nextProps.options[0].value);
     }
+  }
+
+  render() {
+    let options = this.props.options.map(
+        option => <option value={option.value}>{option.label}</option>
+        );
 
     return (
       <div>
-        <select value={this.props.value} onChange={this.handleChange.bind(this)}>
+        <select value={this.state.value} onChange={this.handleChange.bind(this)}>
           {options}
         </select>
       </div>
