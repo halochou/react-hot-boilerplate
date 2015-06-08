@@ -1,5 +1,6 @@
-var THREE = require('three');
-var OrbitControls = require('three-orbit-controls')(THREE);
+//var THREE = require('three');
+//var OrbitControls = require('three-orbit-controls')(THREE);
+//var OrbitControls = THREE.OrbitControls;
 var scene, canvas, renderer, camera, controls;
 var onWindowResize;
 var render;
@@ -56,7 +57,7 @@ var init = function (params) {
   camera.position.z = 100;
   camera.position.y = 0;
 
-  controls = new OrbitControls( camera, renderer.domElement);
+  controls = new THREE.OrbitControls( camera, renderer.domElement);
   controls.target = new THREE.Vector3(0,0,0);
   controls.noZoom = true;
   controls.noPan = true;
@@ -69,12 +70,6 @@ var init = function (params) {
 
   window.addEventListener( 'resize', onWindowResize, false );
 
-  var geometry = new THREE.BoxGeometry( 2, 2, 1 );
-  var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-  var cube = new THREE.Mesh( geometry, material );
-  scene.add( cube );
-
-  // render();
   animate();
 };
 
@@ -100,16 +95,19 @@ onWindowResize = function () {
 
 var _updateModelFromLoader = function (targetName, objPath, mtlPath){
   var loader = new THREE.OBJMTLLoader();
+  loader.crossOrigin = "anonymous";
   loader.load(objPath, mtlPath,
     //onSuccess
     function (newModel) {
-      console.log("Model changed suc");
+      // console.log("Loaded.");
       newModel.name = targetName;
       scene.remove(scene.getObjectByName(targetName));
       scene.add(newModel);
+      //console.log(scene.getObjectByName('suit_collar'));
     },
     //onProgress
     function (xhr) {
+      // console.log("Loading");
       // if ( xhr.lengthComputable ) {
       //   var percentComplete = xhr.loaded / xhr.total * 100;
       //   console.log( Math.round(percentComplete, 2) + '% downloaded' );
@@ -117,25 +115,26 @@ var _updateModelFromLoader = function (targetName, objPath, mtlPath){
     },
     //onError
     function (xhr) {
+      // console.log("Load failed.");
     } );
 };
 
 // /assets/models/suit_main_double-breasted_2_side_fabric_black
 var updateAll = function(newState) {
-  console.log("THREE:", newState);
   // return;
 
-  var mainOBJPath = 'http://localhost:9999/assets/models/suit_main/' + newState.button + '_' + newState.tail + '.obj';
-  var mainMTLPath = 'http://localhost:9999//assets/models/suit_main/' + newState.button + '_' + newState.tail + '_' + newState.fabric + '.mtl';
+  var mainOBJPath = 'http://localhost:9999/assets/models/suit_main/' + newState.button + '_' + newState.tail + '/' + newState.button + '_' + newState.tail + '.obj';
+  var mainMTLPath = 'http://localhost:9999/assets/models/suit_main/' + newState.button + '_' + newState.tail + '/' + newState.button + '_' + newState.tail + '_fabric_' + newState.fabric + '.mtl';
   _updateModelFromLoader('suit_main', mainOBJPath, mainMTLPath);
 
-  var collarOBJPath = 'http://localhost:9999//assets/models/suit_collar/' + newState.button + '_' + newState.collar + '.obj';
-  var collarMTLPath = 'http://localhost:9999//assets/models/suit_collar/' + newState.button + '_' + newState.collar + '_' + newState.fabric + '.mtl';
-  _updateModelFromLoader('suit_collar', mainOBJPath, mainMTLPath);
+  var collarOBJPath = 'http://localhost:9999/assets/models/suit_collar/' + newState.button + '_' + newState.collar + '/' + newState.button + '_' + newState.collar + '.obj';
+  var collarMTLPath = 'http://localhost:9999/assets/models/suit_collar/' + newState.button + '_' + newState.collar + '/' + newState.button + '_' + newState.collar + '_fabric_' + newState.fabric + '.mtl';
+  console.log(collarOBJPath);
+  _updateModelFromLoader('suit_collar', collarOBJPath, collarMTLPath);
 
-  var pocketOBJPath = 'http://localhost:9999//assets/models/suit_pocket/' + newState.pocket + '.obj';
-  var pocketOBJPath = 'http://localhost:9999//assets/models/suit_pocket/' + newState.pocket + '_' + newState.fabric + '.mtl';
-  _updateModelFromLoader('suit_pocket', mainOBJPath, mainMTLPath);
+  var pocketOBJPath = 'http://localhost:9999/assets/models/suit_pocket/' + newState.pocket + '/' + newState.pocket + '.obj';
+  var pocketMTLPath = 'http://localhost:9999/assets/models/suit_pocket/' + newState.pocket + '/' + newState.pocket + '_fabric_' + newState.fabric + '.mtl';
+  _updateModelFromLoader('suit_pocket', pocketOBJPath, pocketMTLPath);
 
   //return newState;
 };

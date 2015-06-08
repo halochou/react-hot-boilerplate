@@ -6,9 +6,16 @@ export default class Dropdown extends Component {
   }
 
   render() {
-    let options = this.props.options.map(
-      option => <option value={option.value}>{option.label}</option>
-      );
+    let options = [];
+    if(this.props.filter){
+      options = this.props.options.filter(this.props.filter).map(
+        option => <option value={option.value}>{option.label}</option>
+        );
+    } else {
+      options = this.props.options.map(
+        option => <option value={option.value}>{option.label}</option>
+        );
+    }
 
     return (
       <div>

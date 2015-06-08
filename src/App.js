@@ -3,17 +3,17 @@ import Dropdown from './Components/Dropdown';
 import ThreeBox from './Components/ThreeBox';
 
 let buttonOpts = [
-    { value: 'single_breasted_1', label: 'S1' },
-    { value: 'single_breasted_2', label: 'S2' },
-    { value: 'single_breasted_3', label: 'S3' },
-    { value: 'double_breasted_2', label: 'D2' },
-    { value: 'double_breasted_4', label: 'D4' },
-    { value: 'double_breasted_6', label: 'D6' }
+    { value: 'single-breasted_1', label: 'S1' },
+    { value: 'single-breasted_2', label: 'S2' },
+    { value: 'single-breasted_3', label: 'S3' },
+    { value: 'double-breasted_2', label: 'D2' },
+    { value: 'double-breasted_4', label: 'D4' },
+    { value: 'double-breasted_6', label: 'D6' }
 ];
 
 let collarOpts = [
     { value: 'peaked_lapel', label: 'Peaked' },
-    { value: 'notch_lapen', label: 'Notch' }
+    { value: 'notch_lapel', label: 'Notch' }
 ];
 
 let tailOpts = [
@@ -38,7 +38,7 @@ export default class App extends Component {
     super(props);
     this.state = { 
       fabric: 'black',
-      button: 'single_breasted_1',
+      button: 'single-breasted_2',
       tail: 'side',
       pocket: 'lean',
       collar: 'peaked_lapel' 
@@ -47,7 +47,13 @@ export default class App extends Component {
 
   _handleDropdownChange(name, value) {
     this.setState({[name]: value});
-    console.log(name, value);
+    //console.log(name, value);
+  }
+
+  tailFilter(opt){
+    // if(this.state.button)
+    return true;
+    // opt => opt.value != 'back' 
   }
 
   render() {
@@ -55,9 +61,9 @@ export default class App extends Component {
     return (
       <div>
         <div>
-          <Dropdown options={fabricOpts} onChange={this._handleDropdownChange.bind(this)} name="fabric" value={this.state.fabric} />
+          <Dropdown options={fabricOpts} onChange={this._handleDropdownChange.bind(this)} name="fabric" value={this.state.fabric}  />
           <Dropdown options={buttonOpts} onChange={this._handleDropdownChange.bind(this)} name="button" value={this.state.button} />
-          <Dropdown options={tailOpts} onChange={this._handleDropdownChange.bind(this)} name="tail" value={this.state.tail} />
+          <Dropdown options={tailOpts} onChange={this._handleDropdownChange.bind(this)} name="tail" value={this.state.tail} filter={this.tailFilter.bind(this)} />
           <Dropdown options={pocketOpts} onChange={this._handleDropdownChange.bind(this)} name="pocket" value={this.state.pocket} />
           <Dropdown options={collarOpts} onChange={this._handleDropdownChange.bind(this)} name="collar" value={this.state.collar} />
         </div>
